@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Job Recommendation System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h2>Job Recommendation System</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="profile.html">My Profile</a>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+
+        <h1>My Student Profile</h1>
+        <p>Manage your information and upload your resume.</p>
+
+        <div class="profile-info">
+
+            <h3>Personal Information</h3>
+
+            <p><strong>Name:</strong> <span id="profileName">Not available</span></p>
+
+            <p><strong>Email:</strong> <span id="profileEmail">Not available</span></p>
+
+            <p><strong>University:</strong> <span id="profileUniversity">Not available</span></p>
+
+            <p><strong>Department:</strong> <span id="profileDepartment">Not available</span></p>
+
+            <p><strong>Skills:</strong> <span id="profileSkills">Not available</span></p>
+
+        </div>
+           
+</div>
+      <div class="update-section">
+    <h3>Update Your Profile</h3>
+    <form id="updateForm">
+        <label>Full Name</label>
+        <input type="text" id="updateName" required>
+   
+     <label>University</label>
+        <input type="text" id="updateUniversity" required>
+
+        <label>Department</label>
+        <input type="text" id="updateDepartment" required>
+
+        <label>Skills</label>
+        <input type="text" id="updateSkills"
+               placeholder="HTML, CSS, JavaScript" required>
+
+        <button type="submit">Update Profile</button>
+
+    </form>
+
+    <p id="updateMessage"></p>
+   </div>
+        <div class="resume-section">
+
+            <h3>Upload Your Resume</h3>
+
+            <p>Accepted formats: PDF and DOCX</p>
+
+            <input type="file" id="resume"
+                   accept=".pdf,.docx">
+
+            <p id="fileName">No file selected</p>
+
+            <button id="uploadBtn" type="button">
+                Upload Resume
+            </button>
+
+            <p id="uploadMessage"></p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- Mammoth.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.13.0/mammoth.browser.min.js"></script>
+
+</body>
+</html>

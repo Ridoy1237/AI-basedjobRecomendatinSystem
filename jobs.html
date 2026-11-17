@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jobs & Internships - CareerAI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h2>Job Recommendation System</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="profile.html">My Profile</a>
+        </nav>
+    </header>
+
+    <div class="jobs-container">
+
+        <h1>Find Jobs & Internships</h1>
+
+        <p>Explore opportunities that match your skills.</p>
+
+        <div class="job-search">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by job title, company or skills..."
+            >
+
+            <select id="jobType">
+                <option value="All">All Opportunities</option>
+                <option value="Internship">Internship</option>
+                <option value="Full-time">Full-time Job</option>
+            </select>
+
+        </div>
+
+        <h2>Available Opportunities</h2>
+
+        <div id="jobsContainer" class="jobs-list">
+            <!-- Job cards will appear here -->
+        </div>
+
+        <p id="noJobsMessage"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
