@@ -1,223 +1,77 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Applications</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 30px;
-            background: #f4f6f9;
-            color: #222;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            color: #2563eb;
-        }
-
-        .back-button {
-            text-decoration: none;
-            background: #2563eb;
-            color: white;
-            padding: 11px 18px;
-            border-radius: 6px;
-        }
-
-        .application-card {
-            background: white;
-            padding: 22px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .application-card h3 {
-            margin-top: 0;
-            color: #2563eb;
-        }
-
-        .application-card p {
-            line-height: 1.6;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: #fff3cd;
-            color: #856404;
-            font-weight: bold;
-        }
-
-        .empty-message {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Applications </title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <div class="container">
-
-        <div class="header">
-
-            <h1>Job Recommendation System</h1>
-
-            <a href="jobs.html" class="back-button">
-                Back to Jobs
-            </a>
-
-        </div>
-
-        <div id="applicationsContainer"></div>
-
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Job Recommendation System<span></span></span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a><a href="jobs.html">Explore Jobs</a>
+      <a class="active" href="my-applications.html">My Applications</a><a href="profile.html">My Profile</a>
+    </nav>
+  </header>
+  <main class="applications-shell">
+    <div class="applications-heading">
+      <div><span class="section-kicker">YOUR CAREER ACTIVITY</span><h1>My Applications</h1><p>Review the jobs you have applied for and check their current status.</p></div>
+      <a class="btn" href="jobs.html">Explore More Jobs →</a>
     </div>
+    <div id="applicationsContainer"></div>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    const applicationsContainer = document.getElementById("applicationsContainer");
+    const studentData = JSON.parse(localStorage.getItem("studentData") || "null");
+    const allApplications = JSON.parse(localStorage.getItem("jobApplications") || "[]");
 
-
-    <!-- Main JavaScript -->
-    <script src="script.js"></script>
-
-
-    <!-- My Applications JavaScript -->
-    <script>
-
-        const applicationsContainer =
-            document.getElementById("applicationsContainer");
-
-
-        // Get current student
-        const studentData = JSON.parse(
-            localStorage.getItem("studentData") || "null"
-        );
-
-
-        // Get all applications
-        const allApplications = JSON.parse(
-            localStorage.getItem("jobApplications") || "[]"
-        );
-
-
-        // Show applications
-        function displayApplications() {
-
-            applicationsContainer.innerHTML = "";
-
-
-            if (!studentData) {
-
-                applicationsContainer.innerHTML = `
-                    <div class="empty-message">
-                        <h3>Please create a student profile first.</h3>
-                    </div>
-                `;
-
-                return;
-
-            }
-
-
-            // Show only current student's applications
-            const myApplications = allApplications.filter(function(application) {
-
-                return application.email.toLowerCase() ===
-                    studentData.email.toLowerCase();
-
-            });
-
-
-            if (myApplications.length === 0) {
-
-                applicationsContainer.innerHTML = `
-                    <div class="empty-message">
-                        <h3>No Applications Found</h3>
-                        <p>You have not applied for any jobs yet.</p>
-                    </div>
-                `;
-
-                return;
-
-            }
-
-
-            // Display each application
-            myApplications.slice().reverse().forEach(function(application) {
-
-                const card = document.createElement("div");
-
-                card.className = "application-card";
-
-
-                card.innerHTML = `
-
-                    <h3>${application.jobTitle}</h3>
-
-                    <p>
-                        <strong>Company:</strong>
-                        ${application.company}
-                    </p>
-
-                    <p>
-                        <strong>Applicant:</strong>
-                        ${application.studentName}
-                    </p>
-
-                    <p>
-                        <strong>Email:</strong>
-                        ${application.email}
-                    </p>
-
-                    <p>
-                        <strong>Applied Date:</strong>
-                        ${application.appliedAt}
-                    </p>
-
-                    <p>
-                        <strong>Status:</strong>
-                        <span class="status">
-                            ${application.status}
-                        </span>
-                    </p>
-
-                `;
-
-
-                applicationsContainer.appendChild(card);
-
-            });
-
-        }
-
-
-        displayApplications();
-
-    </script>
-
+    function displayApplications() {
+      applicationsContainer.innerHTML = "";
+      if (!studentData) {
+        applicationsContainer.innerHTML = '<div class="empty-message"><h3>Create your student profile first</h3><p>Register to start applying for opportunities.</p><br><a class="btn btn-small" href="register.html">Create Profile</a></div>';
+        return;
+      }
+      const myApplications = allApplications.filter(function(application) {
+        return (application.email || "").toLowerCase() === (studentData.email || "").toLowerCase();
+      });
+      if (myApplications.length === 0) {
+        applicationsContainer.innerHTML = '<div class="empty-message"><h3>No applications yet</h3><p>When you apply for a job, it will appear here.</p><br><a class="btn btn-small" href="jobs.html">Browse Jobs</a></div>';
+        return;
+      }
+      myApplications.slice().reverse().forEach(function(application) {
+        const card = document.createElement("article");
+        card.className = "application-card";
+        const title = document.createElement("h3");
+        title.textContent = application.jobTitle || "Untitled opportunity";
+        card.appendChild(title);
+        const fields = [
+          ["Company", application.company],
+          ["Applicant", application.studentName],
+          ["Email", application.email],
+          ["Applied Date", application.appliedAt]
+        ];
+        fields.forEach(function(field) {
+          const p = document.createElement("p");
+          const strong = document.createElement("strong");
+          strong.textContent = field[0] + ": ";
+          p.appendChild(strong);
+          p.appendChild(document.createTextNode(field[1] || "Not available"));
+          card.appendChild(p);
+        });
+        const statusLine = document.createElement("p");
+        const statusLabel = document.createElement("strong");
+        statusLabel.textContent = "Status: ";
+        const status = document.createElement("span");
+        status.className = "status";
+        status.textContent = application.status || "Pending";
+        statusLine.append(statusLabel, status);
+        card.appendChild(statusLine);
+        applicationsContainer.appendChild(card);
+      });
+    }
+    displayApplications();
+  </script>
 </body>
 </html>
